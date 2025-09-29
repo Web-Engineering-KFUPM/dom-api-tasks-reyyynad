@@ -90,14 +90,14 @@ button2.addEventListener("click", function () {
     if (!response.ok) {                 // not 2xx → treat as an error
       throw new Error("HTTP " + response.status);
     }
-    return response.json();             // turn response body into JS object
+    return response.json(); // turn response body into JS object
   })
   .then(function (data) {
     
     document.getElementById("t3-quote").innerHTML = data.quote
     document.getElementById("t3-author").innerHTML = data.author 
   })
-  .catch(function (err) {
+  .catch(function (error) {
     console.error("Oops error fetching quote:", error);
   });
 
@@ -113,11 +113,13 @@ TODO4: Dammam Weather Now
 Use the OpenWeatherMap API to display live weather data.
 
 🌍 API Link:
-https://api.openweathermap.org/data/2.5/weather?q=Dammam&appid=API_KEY=metric
+https://api.openweathermap.org/data/2.5/weather?q=Dammam&appid=&units=metric
+
+
 
 ⚠️ Replace YOUR_API_KEY with your actual API key from:
 https://openweathermap.org/api
-
+d
 ✅ Task:
 - When the button with id="t4-loadWx" is clicked:
     - Fetch current weather data for Dammam.
@@ -130,3 +132,29 @@ data.main.temp      → temperature (°C)
 data.main.humidity  → humidity (%)
 data.wind.speed     → wind speed (m/s)
 */
+
+
+ 
+const button3 = document.getElementById("t4-loadWx");
+button3.addEventListener("click", function () {
+    const apiKey = "4618eaf7c6c7446ebf0ddb04be8a7565"; // replace with your own
+    const city = "Dammam";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+    fetch(url)
+  .then(function (response) {
+    if (!response.ok) {                 // not 2xx → treat as an error
+      throw new Error("HTTP " + response.status);
+    }
+    return response.json();             // turn response body into JS object
+  })
+  .then(function (data) {
+    
+    document.getElementById("t4-temp").innerHTML = data.main.temp + "(°C)"
+    document.getElementById("t4-hum").innerHTML = data.main.humidity + "(%)"
+    document.getElementById("t4-wind").innerHTML =data.wind.speed + " m/s"
+  })
+  .catch(function (error) {
+    console.error("Oops error fetching data:", error);
+  });
+
+});
